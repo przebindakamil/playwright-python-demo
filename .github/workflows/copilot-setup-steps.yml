@@ -22,13 +22,16 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
-
+      
     - name: Install dependencies
+      working-directory: mcp
       run: npm ci
 
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      working-directory: mcp
+      run: npx playwright install chromium
 
     # Customize this step as needed
     - name: Build application
       run: npx run build
+
