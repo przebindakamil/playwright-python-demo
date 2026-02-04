@@ -30,8 +30,3 @@ jobs:
     - name: Install Playwright Browsers
       working-directory: mcp
       run: npx playwright install chromium
-
-    # Customize this step as needed
-    - name: Build application
-      run: npx run build
-
