@@ -1,0 +1,94 @@
+
+1) Ustandaryzuj uruchamianie i konfigurację (zero magii)
+
+Dodaj:
+
+pyproject.toml + ruff (lint/format) + opcjonalnie mypy
+
+pytest.ini (markers, addopts, base_url/env)
+
+.env.example + loader configu (np. pydantic-settings albo prosty os.environ)
+
+Makefile albo taskfile (np. make test, make test-ui, make lint, make debug)
+
+Efekt: każdy w zespole uruchamia testy tak samo, a CI nie jest „osobnym światem”.
+
+2) Fixtures jako DI (to jest największy „senior leap” w pytest-playwright)
+
+W tests/conftest.py:
+
+browser_context_args (timeouts, locale, timezone, geolocation jeśli trzeba)
+
+fixture context/page z dopiętymi listenerami na console, pageerror, requestfailed
+
+fixture user / api do seedowania danych (APIRequestContext)
+
+opcjonalnie storage_state per rola (admin/user)
+
+Zasada senior: UI do weryfikacji, API do setupu danych.
+
+3) Locator strategy: web-first i kontrakt z devami
+
+W kodzie:
+
+preferuj get_by_role, get_by_label, get_by_test_id
+
+zero selectorów typu .class:nth-child(3) w testach
+
+na poziomie projektu spisz krótki “contract”: kiedy wymagamy data-testid.
+
+4) Stabilność i diagnostyka (trace jako standard)
+
+W pytest.ini / CLI:
+
+--tracing=retain-on-failure
+
+--video=retain-on-failure
+
+--screenshot=only-on-failure
+
+sensowny --timeout i expect timeout
+
+W CI: artefakty z trace/video/screenshot + html report.
+
+5) Testy warstwami (żeby repo nie skończyło jako „100 E2E klikaczy”)
+
+Struktura, np.:
+
+tests/smoke/ (5–15 krytycznych flow)
+
+tests/e2e/ (reszta)
+
+tests/api/ (kontrakty / setup helpers)
+
+tests/components/ (jeśli masz komponenty UI powtarzalne)
+
+I markery: @pytest.mark.smoke, @pytest.mark.regression, @pytest.mark.flaky (ten ostatni tylko tymczasowo).
+
+6) CI: szybkie PR + pełne nightly
+
+GitHub Actions:
+
+PR: smoke + sharding (albo mniejsza równoległość)
+
+nightly: full regression
+
+cache pip + Playwright browsers
+
+artefakty zawsze przy failu
+
+Playwright ma gotowe wzorce pod CI i GHA (warto się ich trzymać).
+
+3 konkretne “PR-y”, które bym kazał Ci zrobić teraz (w tej kolejności)
+
+PR#1: tooling & config
+pytest.ini, pyproject.toml (ruff), Makefile, .env.example, uporządkowane komendy w README.
+
+PR#2: conftest fixtures + diagnostyka
+standardowe listenery + trace/video on fail + ujednolicone timeouty.
+
+PR#3: test layering + tagi + selekcja na CI
+smoke suite + markery + joby w Actions.
+
+Jeśli wrzucisz tu (wklej jako tekst) 2–3 najważniejsze pliki:
+tests/conftest.py, 1 przykładowy test i 1 Page Object — zrobię Ci już konkretne, “seniorowe” uwagi linijka-po-linijce i zaproponuję refactor.

@@ -67,11 +67,7 @@ def test_checkout(cart_with_item: BasicCartPage, page: Page) -> None:
     cart_with_item.click_checkout()
     page.wait_for_timeout(1000)
     body_text = page.text_content("body") or ""
-    assert (
-        "login" in page.url.lower()
-        or "Thank you" in body_text
-        or "confirm" in page.url.lower()
-    )
+    assert "login" in page.url.lower() or "Thank you" in body_text or "confirm" in page.url.lower()
 
 
 def test_empty_cart_checkout(app_pages, page: Page) -> None:

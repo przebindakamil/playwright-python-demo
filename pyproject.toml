@@ -17,9 +17,9 @@ ignore = ["E501"] # bo trzymamy line-length, ale nie chcemy wojen o długie stri
 quote-style = "double"
 indent-style = "space"
 
-# [tool.mypy]
-# python_version = "3.11"
-# warn_return_any = true
-# warn_unused_configs = true
-# disallow_untyped_defs = false
-# no_implicit_optional = true
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+no_implicit_optional = true

@@ -1,5 +1,54 @@
+# =========================
+# PYTHON
+# =========================
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environment
 .venv/
+venv/
+
+# =========================
+# PLAYWRIGHT (PYTHON)
+# =========================
+playwright-report/
+test-results/
+
+# =========================
+# NODE / MCP (Playwright MCP)
+# =========================
+**/node_modules/
+mcp/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# MCP generated artifacts
+mcp/test-results/
+mcp/playwright-report/
+
+# =========================
+# VS CODE
+# =========================
+.vscode/*
+!.vscode/mcp.json
+
+# =========================
+# OS / EDITORS
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# ENV / SECRETS
+# =========================
 .env
-playwright/.cache
-.idea
+.env.*
