@@ -89,7 +89,7 @@ class BasicCartPage(BasePage):
                 return rows
             except Exception:
                 return 0
-        
+
         # Otherwise get count from the cart icon text
         text = self.get_cart_count_text()
         # Extract number from "🛒 1" or similar
