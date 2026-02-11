@@ -28,7 +28,7 @@ jobs:
         run: ruff check .
 
       - name: Install Playwright browsers
-        run: python -m playwright install --with-deps
+        run: python -m playwright install chromium
 
       - name: Run tests
         run: pytest
