@@ -37,4 +37,5 @@ class TrianglePage(BasePage):
         self.identify_button.click()
 
     def get_result(self) -> str:
-        return self.page.text_content("body")
+        result = self.page.text_content("body")
+        return result or ""

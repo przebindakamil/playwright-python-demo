@@ -1,3 +1,4 @@
+from collections.abc import Generator
 from dataclasses import dataclass
 
 import pytest
@@ -9,7 +10,7 @@ from pages.triangle_page import TrianglePage
 
 
 @pytest.fixture(scope="session")
-def browser() -> Browser:
+def browser() -> Generator[Browser, None, None]:
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         yield browser
@@ -17,14 +18,14 @@ def browser() -> Browser:
 
 
 @pytest.fixture
-def context(browser: Browser) -> BrowserContext:
+def context(browser: Browser) -> Generator[BrowserContext, None, None]:
     ctx = browser.new_context()
     yield ctx
     ctx.close()
 
 
 @pytest.fixture
-def page(context: BrowserContext) -> Page:
+def page(context: BrowserContext) -> Generator[Page, None, None]:
     p = context.new_page()
     yield p
     p.close()
