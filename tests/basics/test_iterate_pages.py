@@ -1,7 +1,7 @@
 import pytest
 from playwright.sync_api import Page
-from src.base_page import BasePage
 
+from src.base_page import BasePage
 
 APPS = [
     "triangle",
@@ -18,7 +18,7 @@ APPS = [
     "text-transformer",
     "simulated-login",
     "numbers-to-text",
-    "note-taker"
+    "note-taker",
 ]
 
 

@@ -76,7 +76,8 @@ class BasicCartPage(BasePage):
         text = self.get_cart_count_text()
         # Extract number from "🛒 1" or similar
         import re
-        match = re.search(r'\d+', text)
+
+        match = re.search(r"\d+", text)
         return int(match.group()) if match else 0
 
     def is_cart_empty(self) -> bool:

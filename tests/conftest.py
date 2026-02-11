@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 import pytest
-from playwright.sync_api import sync_playwright, Browser, Page, BrowserContext
+from playwright.sync_api import Browser, BrowserContext, Page, sync_playwright
 
 from pages.basic_cart_page import BasicCartPage
 from pages.seven_char_val_page import SevenCharValPage

@@ -1,5 +1,6 @@
 import pytest
 from playwright.sync_api import Page
+
 from pages.basic_cart_page import BasicCartPage
 
 
@@ -11,7 +12,7 @@ def cart_with_item(app_pages, page: Page) -> BasicCartPage:
     cart_page.add_first_item_to_cart()
     page.wait_for_timeout(500)
     cart_page.click_cart()
-    page.wait_for_load_state('networkidle')
+    page.wait_for_load_state("networkidle")
     return cart_page
 
 
@@ -63,7 +64,11 @@ def test_add_multiple_items(products_page: BasicCartPage, page: Page) -> None:
 def test_checkout(cart_with_item: BasicCartPage, page: Page) -> None:
     cart_with_item.click_checkout()
     page.wait_for_timeout(1000)
-    assert "login" in page.url.lower() or "Thank you" in page.text_content("body") or "confirm" in page.url.lower()
+    assert (
+        "login" in page.url.lower()
+        or "Thank you" in page.text_content("body")
+        or "confirm" in page.url.lower()
+    )
 
 
 def test_empty_cart_checkout(app_pages, page: Page) -> None:
@@ -73,11 +78,29 @@ def test_empty_cart_checkout(app_pages, page: Page) -> None:
     assert "login" in page.url.lower()
 
 
+def test_empty_cart_message(app_pages, page: Page) -> None:
+    cart_page = app_pages.basic_cart
+    cart_page.navigate_to_cart()
+    page.wait_for_load_state("networkidle")
+    cart_page.cart_empty_message.wait_for()
+    assert cart_page.is_cart_empty()
+    assert cart_page.get_cart_count() == 0
+
+
+def test_remove_item_from_cart(cart_with_item: BasicCartPage, page: Page) -> None:
+    initial_count = cart_with_item.get_cart_count()
+    cart_with_item.remove_item(0)
+    cart_with_item.cart_empty_message.wait_for()
+    updated_count = cart_with_item.get_cart_count()
+    assert updated_count == max(0, initial_count - 1)
+    assert cart_with_item.is_cart_empty()
+
+
 def test_pagination(app_pages, page: Page) -> None:
     cart_page = app_pages.basic_cart
     cart_page.navigate_to_products()
     page.goto(f"{cart_page.products_url.replace('page=1', 'page=2')}")
-    page.wait_for_load_state('networkidle')
+    page.wait_for_load_state("networkidle")
     assert "page=2" in page.url
 
 
