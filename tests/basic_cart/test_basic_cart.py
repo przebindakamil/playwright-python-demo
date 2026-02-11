@@ -7,7 +7,7 @@ from pages.basic_cart_page import BasicCartPage
 @pytest.fixture
 def cart_with_item(app_pages, page: Page) -> BasicCartPage:
     """Setup: navigate to products, add item, open cart."""
-    cart_page = app_pages.basic_cart
+    cart_page: BasicCartPage = app_pages.basic_cart
     cart_page.navigate_to_products()
     cart_page.add_first_item_to_cart()
     page.wait_for_timeout(500)
@@ -19,7 +19,7 @@ def cart_with_item(app_pages, page: Page) -> BasicCartPage:
 @pytest.fixture
 def products_page(app_pages) -> BasicCartPage:
     """Setup: navigate to products page."""
-    cart_page = app_pages.basic_cart
+    cart_page: BasicCartPage = app_pages.basic_cart
     cart_page.navigate_to_products()
     return cart_page
 

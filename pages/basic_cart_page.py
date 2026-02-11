@@ -67,7 +67,8 @@ class BasicCartPage(BasePage):
         self.add_to_cart_buttons.first.click()
 
     def get_cart_count_text(self) -> str:
-        return self.cart_count_text.text_content()
+        text = self.cart_count_text.text_content()
+        return text or ""
 
     def click_cart(self) -> None:
         self.cart_icon.click()
@@ -81,10 +82,10 @@ class BasicCartPage(BasePage):
         return int(match.group()) if match else 0
 
     def is_cart_empty(self) -> bool:
-        return self.cart_empty_message.is_visible()
+        return bool(self.cart_empty_message.is_visible())
 
     def get_item_count_in_cart(self) -> int:
-        return self.cart_items.count()
+        return int(self.cart_items.count())
 
     def set_quantity(self, index: int, quantity: int) -> None:
         self.quantity_inputs.nth(index).fill(str(quantity))
@@ -96,4 +97,5 @@ class BasicCartPage(BasePage):
         self.checkout_button.click()
 
     def get_total_price_text(self) -> str:
-        return self.total_price.text_content()
+        text = self.total_price.text_content()
+        return text or ""
