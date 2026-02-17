@@ -11,7 +11,7 @@ fix = true
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]
-ignore = ["E501"] # bo trzymamy line-length, ale nie chcemy wojen o długie stringi
+ignore = ["E501"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -23,3 +23,19 @@ warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
 no_implicit_optional = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+minversion = "7.0"
+addopts = "-v --strict-markers --tb=short --color=yes"
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "smoke: Smoke tests",
+    "regression: Regression tests",
+    "on_failure: Artefakty załadowywane na porażkę",
+]
+log_cli = false
+log_cli_level = "INFO"
+timeout = 300

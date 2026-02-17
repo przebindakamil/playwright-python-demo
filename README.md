@@ -156,6 +156,19 @@ To skip hooks (not recommended):
 git commit --no-verify
 ```
 
+## ✨ Test Artifacts (Trace + Video + Screenshot)
+
+On **test failure**, automatically capture:
+- **📍 Trace** (10-50MB) - Full execution timeline with screenshots, DOM snapshots, network events
+- **📹 Video** (50-200MB) - Screen recording of test run  
+- **📸 Screenshot** (100-500KB) - Page state at failure moment
+
+**Analyze with:** `.\artifacts.ps1 trace test_name` → Opens Playwright Inspector
+
+👉 See [README_ARTIFACTS.md](./README_ARTIFACTS.md) (2-min read) or [QUICKSTART.md](./QUICKSTART.md) (5-min setup)
+
+---
+
 ## 🤖 CI/CD
 
 The project uses GitHub Actions for continuous integration:
@@ -170,6 +183,7 @@ The project uses GitHub Actions for continuous integration:
 3. Type checking (Mypy)
 4. Browser installation
 5. Test execution (Pytest)
+6. Auto-upload test artifacts on failure (30-day retention)
 
 ## 📊 Test Coverage
 

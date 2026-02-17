@@ -1,0 +1,11 @@
+# Test configuration
+tests/ @playwright-team
+pyproject.toml @automation-team
+requirements.txt @automation-team
+
+# CI/CD
+.github/workflows/ @devops-team @automation-team
+
+# Documentation
+ARTIFACTS_CONFIG.md @qa-team @automation-team
+README.md @documentation-team
